@@ -5,7 +5,10 @@
 
 import * as express from 'express';
 
+
 const app = express();
+const recordRoutes = express.Router();
+
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to api!' });
