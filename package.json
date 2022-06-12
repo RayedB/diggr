@@ -6,13 +6,20 @@
   "private": true,
   "dependencies": {
     "@nrwl/next": "14.1.9",
+    "@useoptic/express-middleware": "^0.0.5",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "4.17.2",
+    "mongodb": "^4.7.0",
     "next": "12.1.5",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "typedi": "^0.10.0",
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "@nrwl/cli": "14.1.9",

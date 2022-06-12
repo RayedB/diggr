@@ -1,18 +1,28 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import 'reflect-metadata'; // We need this in order to use @Decorators
 
-import * as express from 'express';
+import config from './config';
 
-const app = express();
+import express from 'express';
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api!' });
-});
+import Logger from './loaders/logger';
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+async function startServer() {
+  const app = express();
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  await require('./loaders').default({ expressApp: app });
+
+  app.listen(config.port, () => {
+    Logger.info(`
+      ################################################
+      🛡️  Server listening on port: ${config.port} 🛡️
+      ################################################
+    `);
+  }).on('error', err => {
+    Logger.error(err);
+    process.exit(1);
+  });
+
+}
+
+startServer();
