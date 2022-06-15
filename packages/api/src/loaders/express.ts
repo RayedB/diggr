@@ -23,7 +23,9 @@ export default ({ app }: { app: express.Application }) => {
 
   app.use(express.json());
   app.use(config.api.prefix, routes());
-
+  app.get('/products', (req, res) => {
+    return res.json({foo:"bar"}).status(200);
+  });
   // API Documentation
   app.use(OpticMiddleware({
       enabled: process.env.NODE_ENV !== 'production',
