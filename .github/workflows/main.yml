@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable --immutable-cache --check-cache
       - run: yarn nx run-many --target=build --projects=api,frontend --parallel
   test-api:
     runs-on: ubuntu-latest

@@ -9,7 +9,7 @@ type MyDoc = {
   title: string,
   image: string,
   description: string
-} 
+}
 
 @Service()
 export default class ListingService {
@@ -26,14 +26,15 @@ export default class ListingService {
               title: "test",
               image: "test",
               description: "test"
-            } 
-            await db().collection<MyDoc>('listings').insertOne(userInputDTO)       
-            const ids: object[] = await db().collection('listings').find().toArray()    
+            }
+            console.log(db)
+            await db().collection('listings').insertOne(userInputDTO)
+            const ids: object[] = await db().collection('listings').find().toArray()
             // 401 Error handling
 
            // Dispatch Events
           this.eventDispatcher.dispatch(events.products.add);
-    
+
           return ids;
         } catch (e) {
           this.logger.error(e);
