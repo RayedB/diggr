@@ -29,5 +29,5 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
-      - run: npm ci
-      - run: yarn nx run-many --target=test --projects=api,html --parallel
+      - run: yarn install --immutable --immutable-cache --check-cache
+      - run: yarn nx run-many --target=test --projects=api,frontend --parallel
