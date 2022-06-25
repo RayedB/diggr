@@ -30,7 +30,6 @@
     "@nrwl/jest": "14.1.9",
     "@nrwl/js": "14.1.9",
     "@nrwl/linter": "14.1.9",
-    "@nrwl/next": "^14.1.9",
     "@nrwl/node": "14.1.9",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/react": "14.1.9",
