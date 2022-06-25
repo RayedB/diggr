@@ -2,10 +2,10 @@ import { Service, Inject } from 'typedi';
 import events from '@/subscribers/events';
 import { EventDispatcher, EventDispatcherInterface } from '@/decorators/eventDispatcher';
 import { db } from '../../loaders/database'
-import { Collection } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 
 type MyDoc = {
-  _id: object,
+  _id?: ObjectId
   title: string,
   image: string,
   description: string
@@ -22,7 +22,12 @@ export default class ListingService {
         try {
             // Create Data Object
             console.log("in listing service")
-            await db().collection('listings').insertOne({"foo":"bar"})       
+            const sampleDoc = {
+              title: "test",
+              image: "test",
+              description: "test"
+            } 
+            await db().collection<MyDoc>('listings').insertOne(userInputDTO)       
             const ids: object[] = await db().collection('listings').find().toArray()    
             // 401 Error handling
 
