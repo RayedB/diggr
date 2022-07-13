@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [test]
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
