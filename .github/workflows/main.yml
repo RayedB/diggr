@@ -44,6 +44,8 @@ jobs:
       - run: yarn install
       - name: Build
         run: yarn build
+      - name: Start MongoDB
+        run: docker-compose up --detach mongodb
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
