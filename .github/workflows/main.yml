@@ -1,13 +1,5 @@
 name: CI CD
 
-on:
-  pull_request:
-    branches:
-      - main
-
-  push:
-    branches:
-      - main
 
 jobs:
   test:
@@ -27,7 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [test]
-    if: github.ref == 'refs/heads/main'
+    on:
+      pull_request:
+        branches:
+          - main
+      push:
+        branches:
+          - main
     steps:
       - uses: actions/checkout@v3
       - id: 'auth'
@@ -54,7 +52,7 @@ jobs:
         run: |
           yarn nx build
       - name: 'Docker build'
-        run: docker build --tag "europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest" app/
+        run: docker build --tag "europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest" .
       - name: 'Deploy to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
