@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
@@ -30,12 +30,13 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -46,16 +47,14 @@ jobs:
         run: yarn build
       - name: Start MongoDB
         run: docker-compose up --detach mongodb
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
         with:
-          project_id: ${{ secrets.APP_PROJECT_ID_STAGING }}
-          service_account_key: ${{ secrets.APP_GCP_SA_KEY }}
-          export_default_credentials: true
+          credentials_json: '${{ secrets.APP_GCP_SA_KEY }}'
       - name: Push Image and Publish app to Google App Engine
         working-directory: ./packages/app
         run: |
-          gcloud auth configure-docker europe-west1-docker.pkg.dev
           docker build -t /packages/api/europe-west1-docker.pkg.dev/diggr-staging/api:latest .
           docker push europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest
           gcloud run deploy app --image europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest --port 5000 --region europe-west1
