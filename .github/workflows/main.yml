@@ -50,7 +50,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn install
-      - uses: nrwl/nx-set-shas@v2
       - name: Build
         run: yarn nx build
       - name: Push Image and Publish app to Google App Engine
