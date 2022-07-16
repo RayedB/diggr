@@ -52,8 +52,7 @@ jobs:
       - run: yarn install
       - name: Build
         run: yarn nx build
-      - name: Push Image and Publish app to Google App Engine
-        working-directory: ./packages/app
+      - name: Push Image and Publish app to Google Cloud Run
         run: |
 
           docker build -t /packages/api/europe-west1-docker.pkg.dev/diggr-staging/api:latest .
