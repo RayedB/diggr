@@ -51,12 +51,15 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install
       - name: Build
-        run: yarn nx build
+        run: |
+          yarn nx build
       - name: 'Deploy to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
           image: 'europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest'
           service: 'diggr-api'
+          region: 'europe-west1'
+          env_vars: 'MONGODB_URI="mongodb://localhost:27017"'
       # - name: Push Image and Publish app to Google Cloud Run
       #   working-directory: ./packages/app
       #   run: |
