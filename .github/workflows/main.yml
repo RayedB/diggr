@@ -1,5 +1,13 @@
 name: CI CD
 
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -19,13 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [test]
-    on:
-      pull_request:
-        branches:
-          - main
-      push:
-        branches:
-          - main
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
       - id: 'auth'
