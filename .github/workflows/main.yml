@@ -54,7 +54,7 @@ jobs:
         run: |
           yarn nx build
       - name: 'Docker build'
-        run: docker build --tag "europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest" .
+        run: docker build -f "europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest" .
       - name: 'Deploy to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
