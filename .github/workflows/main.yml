@@ -18,6 +18,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
+      - name: Start MongoDB
+        run: docker-compose up --detach mongodb
       - run: yarn install --immutable --immutable-cache --check-cache
       - run: yarn nx run-many --target=test --projects=api,frontend --parallel
       - run: yarn nx run-many --target=build --projects=api,frontend --parallel
@@ -27,6 +29,7 @@ jobs:
     needs: [test]
     if: github.ref == 'refs/heads/main'
     steps:
+      - uses: actions/checkout@v3
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v0'
@@ -47,11 +50,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn install
+      - uses: nrwl/nx-set-shas@v2
       - name: Build
-        run: yarn build
-      - name: Start MongoDB
-        run: docker-compose up --detach mongodb
-
+        run: yarn nx build
       - name: Push Image and Publish app to Google App Engine
         working-directory: ./packages/app
         run: |
