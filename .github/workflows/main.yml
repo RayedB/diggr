@@ -60,8 +60,10 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Build image and push to Docker Hub and GitHub Container Registry
-        run: docker build -f ./packages/api/Dockerfile -t europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest .
+        name: Build image and push to Artifact Registry
+        run: |
+          docker build -f ./packages/api/Dockerfile -t europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest .
+          docker push europe-west1-docker.pkg.dev/diggr-staging/diggr/api:lates
         # uses: docker/build-push-action@v3
         # with:
         #   # relative path to the place where source code with Dockerfile is located
