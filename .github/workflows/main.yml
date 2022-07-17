@@ -63,6 +63,7 @@ jobs:
         name: Build image and push to Artifact Registry
         run: |
           docker build -f ./packages/api/Dockerfile -t europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest .
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
           docker push europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest
         # uses: docker/build-push-action@v3
         # with:
