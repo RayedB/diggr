@@ -81,7 +81,7 @@ jobs:
           service: 'diggr-api'
           region: 'europe-west1'
           secrets: |
-            MONGODB_URI=mongodb_uri
+            MONGODB_URI=mongodb_uri:latest
       # - name: Push Image and Publish app to Google Cloud Run
       #   working-directory: ./packages/app
       #   run: |
