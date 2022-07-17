@@ -8,7 +8,7 @@ export default {
   /**
    * That long string from mlab
    */
-  databaseURL: process.env.MONGODB_URI,
+  databaseURL: process.env.MONGODB_URI ||'mongodb://localhost:27017/diggr',
 
   /**
    * Your secret sauce

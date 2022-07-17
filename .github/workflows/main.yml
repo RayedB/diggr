@@ -80,7 +80,8 @@ jobs:
           image: 'europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest'
           service: 'diggr-api'
           region: 'europe-west1'
-          env_vars: 'MONGODB_URI="mongodb://localhost:27017"'
+          secrets: |
+            MONGODB_URI=mongodb_uri
       # - name: Push Image and Publish app to Google Cloud Run
       #   working-directory: ./packages/app
       #   run: |
