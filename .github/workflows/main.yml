@@ -81,7 +81,10 @@ jobs:
           service: 'diggr-api'
           region: 'europe-west1'
           secrets: |
-            MONGODB_URI=mongodb_uri:1
+            MONGODB_URI=MONGODB_URI:1
+      -
+        name: Reroute trafic to new Revision
+        run: gcloud run services update-traffic diggr-api --to-latest
       # - name: Push Image and Publish app to Google Cloud Run
       #   working-directory: ./packages/app
       #   run: |
