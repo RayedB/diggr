@@ -56,7 +56,11 @@ jobs:
       - name: Build
         run: |
           yarn nx build
-      - name: Build image and push to Docker Hub and GitHub Container Registry
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v3
         with:
           # relative path to the place where source code with Dockerfile is located
