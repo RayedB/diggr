@@ -84,7 +84,7 @@ jobs:
             MONGODB_URI=MONGODB_URI:1
       -
         name: Reroute trafic to new Revision
-        run: gcloud run services update-traffic diggr-api --to-latest
+        run: gcloud run services update-traffic diggr-api --to-latest --region europe-west1
       # - name: Push Image and Publish app to Google Cloud Run
       #   working-directory: ./packages/app
       #   run: |
