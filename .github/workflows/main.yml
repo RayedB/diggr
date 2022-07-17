@@ -63,7 +63,7 @@ jobs:
         name: Build image and push to Artifact Registry
         run: |
           docker build -f ./packages/api/Dockerfile -t europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest .
-          docker push europe-west1-docker.pkg.dev/diggr-staging/diggr/api:lates
+          docker push europe-west1-docker.pkg.dev/diggr-staging/diggr/api:latest
         # uses: docker/build-push-action@v3
         # with:
         #   # relative path to the place where source code with Dockerfile is located
