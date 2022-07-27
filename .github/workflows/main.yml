@@ -23,7 +23,29 @@ jobs:
       - run: yarn install --immutable --immutable-cache --check-cache
       - run: yarn nx run-many --target=test --projects=api,frontend --parallel
       - run: yarn nx run-many --target=build --projects=api,frontend --parallel
-  deploy:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [test]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v2
+      - run: npm ci
+      - run: npx nx workspace-lint
+      - run: npx nx format:check
+      - run: npx nx affected --target=build --parallel=3
+      - name: deploy site to vercel      
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
+          vercel-args: '--prod' #Optional
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}  #Required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required 
+  deploy-api:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [test]
