@@ -33,10 +33,9 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
-      - run: npm ci
-      - run: npx nx workspace-lint
-      - run: npx nx format:check
-      - run: npx nx affected --target=build --parallel=3
+      - run: yarn nx workspace-lint
+      - run: yarn nx format:check
+      - run: yarn nx affected --target=build --parallel=3
       - name: deploy site to vercel      
         uses: amondnet/vercel-action@v20
         with:
