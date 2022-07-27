@@ -33,7 +33,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
-      - run: npx nx affected --target=build --parallel=3
+      - run: yarn install --immutable --immutable-cache --check-cache
+      - run: yarn nx run-many --target=build --projects=frontend --parallel
       - name: deploy site to vercel      
         uses: amondnet/vercel-action@v20
         with:
