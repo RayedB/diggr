@@ -96,7 +96,7 @@ jobs:
           secrets: |
             MONGODB_URI=MONGODB_URI:1
       -
-        name: Reroute trafic to new Revision
+        name: Reroute traffic to new Revision
         run: gcloud run services update-traffic diggr-api --to-latest --region europe-west1
 
 
