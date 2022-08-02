@@ -23,11 +23,12 @@ jobs:
       - run: yarn install --immutable --immutable-cache --check-cache
       - run: yarn nx run-many --target=test --projects=api,frontend --parallel
       - run: yarn nx run-many --target=build --projects=api,frontend --parallel
-  deploy-frontend:
+  deploy-frontend-staging:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [test]
-    if: github.ref == 'refs/heads/main'
+    environment: preview
+    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,19 +36,20 @@ jobs:
       - uses: nrwl/nx-set-shas@v2
       - run: yarn install --immutable --immutable-cache --check-cache
       - run: yarn nx run-many --target=build --projects=frontend --parallel
-      - name: deploy site to vercel      
+      - name: deploy site to vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
-          vercel-args: '--prod' #Optional
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
+          #vercel-args: '--prod' #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}  #Required
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required 
-  deploy-api:
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
+  deploy-api-staging:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [test]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/develop'
+    environment: preview
     env:
       IMAGE_NAME: diggr-api
       PROJECT_ID: diggr-staging
