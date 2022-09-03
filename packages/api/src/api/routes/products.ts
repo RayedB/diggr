@@ -27,4 +27,11 @@ export default (app: Router): void => {
       logger.error(error);
     }
   });
+
+    app.delete('/products/:id', (req, res) => {
+      const listingServiceInstance = Container.get(ListingService);
+      const id = req.params.id;
+      const product= listingServiceInstance.Remove(id);
+      return res.status(204).send('ok');
+    })
 };

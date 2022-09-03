@@ -52,4 +52,15 @@ export default class ListingService {
           throw error;
         }
       }
+
+      public async Remove(id: string): Promise<void> {
+        try {
+          const objectId = new ObjectId(id)
+          await db().collection('listings').deleteOne({_id:objectId})
+          return
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
     }
