@@ -42,9 +42,9 @@ export default class ListingService {
         }
       }
 
-      public async List() {
+      public async List(): Promise<any> {
         try {
-          const products = await db().collection('listings').find().toArray()
+          const products: object[] = await db().collection('listings').find().toArray()
           this.eventDispatcher.dispatch(events.products.list);
           return products;
         } catch (error) {

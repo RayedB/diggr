@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { logger } from 'nx/src/utils/logger';
 import { Container } from 'typedi';
 import { Logger } from 'winston';
 import ListingService from '../services/listings';
@@ -11,16 +12,19 @@ export default (app: Router): void => {
       const listingServiceInstance = Container.get(ListingService);
       const product= await listingServiceInstance.Add(req.body);
       return res.status(201).json({ product });
-    } catch (e) {
-      logger.error('🔥 error: %o', e);
+    } catch (error) {
+      logger.error('🔥 error: %o', error);
     }
   });
 
-    app.get('/products',async (req, res) => {
-//      logger.debug('Calling Sign-up endpoint with body: %o', req.body);
+    app.get('/products',async (req: Request, res: Response) => {
+      logger.debug('Calling Sign-up endpoint with body: %o', req.body);
+    try {
       const listingServiceInstance = Container.get(ListingService);
       const product= await listingServiceInstance.List();
-      console.log(product)
-        res.json(product);
+      return res.status(200).json({ product });
+    } catch (error) {
+      logger.error(error);
+    }
   });
 };
