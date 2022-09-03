@@ -63,4 +63,18 @@ export default class ListingService {
           throw error;
         }
       }
+
+      public async Find(id: string): Promise<any> {
+        try {
+          const objectId = new ObjectId(id)
+          const product: object[] = await db().collection('listings').findOne({_id:objectId})
+          this.eventDispatcher.dispatch(events.products.list);
+          return product
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
+
+
     }
