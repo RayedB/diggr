@@ -69,12 +69,21 @@ export default class ListingService {
           const objectId = new ObjectId(id)
           const product: object[] = await db().collection('listings').findOne({_id:objectId})
           this.eventDispatcher.dispatch(events.products.list);
-          return product
+          return product;
         } catch (error) {
           this.logger.error(error);
           throw error;
         }
       }
 
-
+      public async Replace(id: string, replacement): Promise<any> {
+        try {
+          const objectId = new ObjectId(id)
+          const product = await db().collection('listings').replaceOne({_id:objectId}, replacement)
+          return product;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
     }

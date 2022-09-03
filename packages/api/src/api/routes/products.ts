@@ -52,4 +52,16 @@ export default (app: Router): void => {
   }
 });
 
+app.put('/products/:id',async (req:Request, res: Response) => {
+  logger.debug('Calling Sign-up endpoint with body: %o', req.body);
+  try {
+    const listingServiceInstance = Container.get(ListingService);
+    const id = req.params.id;
+    const product= await listingServiceInstance.Replace(id, req.body);
+    return res.status(200).json({ product });
+  } catch (error) {
+    logger.error(error);
+  }
+})
+
 };
