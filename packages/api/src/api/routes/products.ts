@@ -28,10 +28,16 @@ export default (app: Router): void => {
     }
   });
 
-    app.delete('/products/:id', (req, res) => {
+    app.delete('/products/:id', (req: Request, res: Response) => {
+      logger.debug('Calling Sign-up endpoint with body: %o', req.body);
+    try {
       const listingServiceInstance = Container.get(ListingService);
       const id = req.params.id;
       const product= listingServiceInstance.Remove(id);
       return res.status(204).send('ok');
-    })
+    } catch (error) {
+      logger.error(error);
+    }
+  });
+
 };
