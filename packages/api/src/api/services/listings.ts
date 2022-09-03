@@ -36,9 +36,20 @@ export default class ListingService {
           this.eventDispatcher.dispatch(events.products.add);
 
           return ids;
-        } catch (e) {
-          this.logger.error(e);
-          throw e;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
         }
       }
-}
+
+      public async List() {
+        try {
+          const products = await db().collection('listings').find().toArray()
+          this.eventDispatcher.dispatch(events.products.list);
+          return products;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
+    }

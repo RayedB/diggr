@@ -27,4 +27,25 @@ export default class ListingEventSubscriber {
       throw e;
     }
   }
+
+  @On(events.products.list)
+  public onProductsLists() {
+    const Logger: Logger = Container.get('logger');
+    try {
+      console.log("caught in event")
+      /**
+       * @TODO implement this
+       */
+      // Call the tracker tool so your investor knows that there is a new signup
+      // and leave you alone for another hour.
+      // TrackerService.track('user.signup', { email, _id })
+      // Start your email sequence or whatever
+      // MailService.startSequence('user.welcome', { email, name })
+    } catch (e) {
+      Logger.error(`🔥 Error on event ${events.products.list}: %o`, e);
+
+      // Throw the error so the process dies (check src/app.ts)
+      throw e;
+    }
+  }
 }

@@ -15,4 +15,12 @@ export default (app: Router): void => {
       logger.error('🔥 error: %o', e);
     }
   });
+
+    app.get('/products',async (req, res) => {
+//      logger.debug('Calling Sign-up endpoint with body: %o', req.body);
+      const listingServiceInstance = Container.get(ListingService);
+      const product= await listingServiceInstance.List();
+      console.log(product)
+        res.json(product);
+  });
 };
