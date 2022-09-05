@@ -13,8 +13,13 @@ describe('insert', () => {
     await connection.close();
   });
 
+
+  beforeEach(async () => {
+    await db.collection('listings').deleteMany({});
+  });
+
   it('should insert a doc into collection', async () => {
-    const users = db.collection('users');
+    const users = db.collection('listings');
   
     const mockUser = {_id: 'some-user-id', name: 'John'};
     await users.insertOne(mockUser);
