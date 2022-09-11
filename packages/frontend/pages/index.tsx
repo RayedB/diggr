@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
+// import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+// import { SearchIcon } from '@heroicons/react/solid'
 
 const user = {
   name: 'Tom Cook',
@@ -101,7 +101,7 @@ export default function Example() {
                       </label>
                       <div className="relative text-white focus-within:text-gray-600">
                         <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                          <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                          {/* <SearchIcon className="h-5 w-5" aria-hidden="true" /> */}
                         </div>
                         <input
                           id="desktop-search"
@@ -119,11 +119,11 @@ export default function Example() {
                     {/* Mobile menu button */}
                     <Popover.Button className="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
                       <span className="sr-only">Open main menu</span>
-                      {open ? (
+                      {/* {open ? (
                         <XIcon className="block h-6 w-6" aria-hidden="true" />
                       ) : (
                         <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-                      )}
+                      )} */}
                     </Popover.Button>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ export default function Example() {
                               className="ml-auto flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                               <span className="sr-only">View notifications</span>
-                              <BellIcon className="h-6 w-6" aria-hidden="true" />
+                              {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                             </button>
                           </div>
                           <div className="mt-3 px-2 space-y-1">
