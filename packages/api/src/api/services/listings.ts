@@ -36,9 +36,54 @@ export default class ListingService {
           this.eventDispatcher.dispatch(events.products.add);
 
           return ids;
-        } catch (e) {
-          this.logger.error(e);
-          throw e;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
         }
       }
-}
+
+      public async List(): Promise<any> {
+        try {
+          const products: object[] = await db().collection('listings').find().toArray()
+          this.eventDispatcher.dispatch(events.products.list);
+          return products;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
+
+      public async Remove(id: string): Promise<void> {
+        try {
+          const objectId = new ObjectId(id)
+          await db().collection('listings').deleteOne({_id:objectId})
+          return
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
+
+      public async Find(id: string): Promise<any> {
+        try {
+          const objectId = new ObjectId(id)
+          const product: object[] = await db().collection('listings').findOne({_id:objectId})
+          this.eventDispatcher.dispatch(events.products.list);
+          return product;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
+
+      public async Replace(id: string, replacement): Promise<any> {
+        try {
+          const objectId = new ObjectId(id)
+          const product = await db().collection('listings').replaceOne({_id:objectId}, replacement)
+          return product;
+        } catch (error) {
+          this.logger.error(error);
+          throw error;
+        }
+      }
+    }
